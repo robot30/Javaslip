@@ -1,0 +1,88 @@
+1.
+
+
+import java.sql.*; 
+import java.io.*; 
+public class DBMetaData 
+{ 
+  public static void main(String[] args) throws Exception 
+  { 
+     ResultSet rs = null; 
+     Class.forName("org.postgresql.Driver"); 
+       Connection  conn = DriverManager 
+            .getConnection("jdbc:postgresql://localhost:5432/java", 
+            "java", "123"); 
+    DatabaseMetaData dbmd = conn.getMetaData(); 
+    System.out.println("Database Product name = " + dbmd.getDatabaseProductName()); 
+    System.out.println("User name = " + dbmd.getUserName()); 
+    System.out.println("Database driver  name= " + dbmd.getDriverName()); 
+    System.out.println("Database driver version = "+ dbmd.getDriverVersion()); 
+    System.out.println("Database product name = " + dbmd.getDatabaseProductName()); 
+    System.out.println("Database Version = " + dbmd.getDriverMajorVersion()); 
+    rs = dbmd.getTables(null,null,null, new String[]{"TABLE"}); 
+    System.out.println("List of tables..."); 
+    while(rs.next()) 
+    { 
+       String tblName = rs.getString("TABLE_NAME"); 
+        System.out.println("Table : "+ tblName); 
+    } 
+    conn.close(); 
+  } 
+} 
+ 
+/* 
+bcs-3@bcs3-ThinkCentre-M58e:~$ cd nandan 
+bcs-3@bcs3-ThinkCentre-M58e:~/nandan$ ls 
+DBMetaData.class  Megh1.java     mysql-connector-java-5.1.43 
+DBMetaData.java   Meghana.class  mysql-connector-java-5.1.43-bin.jar 
+Java.class        Meghana.java   postgresql-9.3-1103.jdbc4.jar 
+Java.java         Megh.class 
+Megh1.class       Megh.java 
+bcs-3@bcs3-ThinkCentre-M58e:~/nandan$ export CLASSPATH=postgresql-9.3-1103.jdbc4.jar:. 
+bcs-3@bcs3-ThinkCentre-M58e:~/nandan$ javac DBMetaData.java 
+bcs-3@bcs3-ThinkCentre-M58e:~/nandan$ java DBMetaData 
+Database Product name = PostgreSQL 
+User name = postgres 
+Database driver  name= PostgreSQL Native Driver 
+Database driver version = PostgreSQL 9.3 JDBC4 (build 1103) 
+Database product name = PostgreSQL 
+Database Version = 9 
+List of tables... 
+Table : company 
+Table : sql_features 
+Table : sql_implementation_info 
+Table : sql_languages 
+Table : sql_packages 
+Table : sql_parts 
+Table : sql_sizing 
+Table : sql_sizing_profiles 
+*/
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+2.
+
+
+import java.util.Random;
+public class ThreadLifecycle implements Runnable {    
+    private String threadName;    
+    public ThreadLifecycle(String name) {        
+    	threadName = name;
+    }    
+    @Override   
+    public void run()
+    {
+        Random rand = new Random();      
+        int sleepTime = rand.nextInt(5000);
+                try {
+            System.out.println(threadName + " is created and will sleep for " + sleepTime + "ms");         
+            Thread.sleep(sleepTime);
+            System.out.println(threadName + " is now dead");        } 
+                
+            catch (InterruptedException e) {
+            System.out.println(threadName + " was interrupted while sleeping");        }
+    }    
+    public static void main(String[] args) {    
+    ThreadLifecycle tl = new ThreadLifecycle("MyThread");
+        Thread t = new Thread(tl);        t.start();
+    }}

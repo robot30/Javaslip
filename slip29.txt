@@ -1,0 +1,76 @@
+1.
+
+import java.sql.Connection; 
+import java.sql.DriverManager; 
+import java.sql.Statement; 
+import java.sql.ResultSet; 
+import java.sql.*; 
+ 
+class donar 
+ 
+{ 
+  public static void main(String args[]) 
+ { 
+ try 
+ { 
+ System.out.println("Database Tutorial"); 
+   Connection  conn = DriverManager 
+            .getConnection("jdbc:postgresql://localhost:5432/java", 
+            "postgres", "123"); 
+  
+ Statement st=conn.createStatement(); 
+ ResultSet rs=st.executeQuery("select * from donar"); 
+ System.out.println("Database Connected"); 
+ while(rs.next())  
+ System.out.println("id is "+rs.getInt(1)+"\tname is "+rs.getString(2)); 
+  
+ } 
+ catch(Exception e) 
+{ 
+ System.out.println("Database not connected"); 
+} 
+ }} 
+ 
+ 
+/* 
+bcs-3@bcs3-ThinkCentre-M58e:~$ cd nandan 
+bcs-3@bcs3-ThinkCentre-M58e:~/nandan$ export CLASSPATH=postgresql-9.3-1103.jdbc4.jar:. 
+bcs-3@bcs3-ThinkCentre-M58e:~/nandan$ javac donar.java 
+bcs-3@bcs3-ThinkCentre-M58e:~/nandan$ java donar 
+Database Tutorial 
+Database Connected 
+id is 1 name is nisha 
+*/
+/////////////////////////////////////////////////////////////////////////
+2.
+
+
+
+
+import java.util.LinkedList; 
+import java.util.Scanner; 
+ 
+public class C2 { 
+    public static void main(String[] args) { 
+        Scanner sc = new Scanner(System.in); 
+        LinkedList<Object> ll = new LinkedList<>(); 
+        ll.add(1); 
+        ll.add(2); 
+        ll.add(3); 
+ 
+        System.out.println("\nElements in List :\n" + ll); 
+ 
+        ll.addFirst(0); 
+ 
+        System.out.println("\nList after adding Elements at First :\n" + ll); 
+ 
+        ll.removeLast(); 
+ 
+        System.out.println("\nList after deleting Last Element :\n" + ll); 
+ 
+        System.out.println("\nSize of the List :\n" + ll.size()); 
+ 
+        sc.close(); 
+    } 
+}
+

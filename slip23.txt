@@ -1,0 +1,88 @@
+2.
+
+
+import java.util.ArrayList; 
+import java.util.Iterator; 
+import java.util.List; 
+import java.util.ListIterator; 
+import java.util.Scanner; 
+ 
+public class StudentNames { 
+    public static void main(String[] args) { 
+        Scanner scanner = new Scanner(System.in); 
+ 
+        System.out.print("Enter the number of students: "); 
+        int n = scanner.nextInt(); 
+ 
+        List<String> students = new ArrayList<String>(); 
+ 
+        for (int i = 0; i < n; i++) { 
+            System.out.print("Enter the name of student " + (i+1) + ": "); 
+            String name = scanner.next(); 
+            students.add(name); 
+        } 
+ 
+        System.out.println("\nStudent names using Iterator:"); 
+        Iterator<String> iterator = students.iterator(); 
+        while (iterator.hasNext()) { 
+            System.out.println(iterator.next()); 
+        } 
+ 
+        System.out.println("\nStudent names using ListIterator:"); 
+        ListIterator<String> listIterator = students.listIterator(); 
+        while (listIterator.hasNext()) { 
+            System.out.println(listIterator.next()); 
+        } 
+    } 
+}
+
+
+
+/////////////////////////////////////////////////////////////
+
+
+
+1.
+
+
+
+import java.util.Scanner;
+
+public class VowelPrinter implements Runnable {
+
+    private final String inputString;
+
+    public VowelPrinter(String inputString) {
+        this.inputString = inputString;
+    }
+
+    @Override
+    public void run() {
+        try {
+            for (int i = 0; i < inputString.length(); i++) {
+                char ch = inputString.charAt(i);
+                if (isVowel(ch)) {
+                    System.out.println(ch);
+                    Thread.sleep(3000);
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean isVowel(char ch) {
+        ch = Character.toLowerCase(ch);
+        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String inputString = scanner.nextLine();
+
+        VowelPrinter vowelPrinter = new VowelPrinter(inputString);
+        Thread thread = new Thread(vowelPrinter);
+        thread.start();
+    }
+}
